@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bucin Interaktif 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .container { padding: 40px 20px; }
+    h1 { font-size: 2.5em; }
+
+    button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      border-radius: 25px;
+      border: none;
+      background: white;
+      color: #ff4b6e;
+      cursor: pointer;
+    }
+
+    .hidden { display: none; }
+
+    .chat-box {
+      background: rgba(255,255,255,0.2);
+      padding: 15px;
+      border-radius: 15px;
+      max-width: 300px;
+      margin: 20px auto;
+      text-align: left;
+    }
+
+    .bubble {
+      background: white;
+      color: black;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 5px 0;
+    }
+
+    .heart {
+      position: absolute;
+      top: -10px;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall { to { transform: translateY(100vh); } }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Hai Kamu 💕</h1>
+
+  <p>Aku ada sesuatu buat kamu...</p>
+
+  <button onclick="nextStep()">Klik ya 💌</button>
+
+  <!-- Chat fake -->
+  <div id="chat" class="chat-box hidden">
+    <div class="bubble">Hai kamu 🥺</div>
+    <div class="bubble">Aku mau jujur sesuatu...</div>
+    <div class="bubble">Aku nyaman banget sama kamu</div>
+    <div class="bubble">Dan...</div>
+  </div>
+
+  <!-- Confession -->
+  <div id="love" class="hidden">
+    <h2>Aku sayang kamu 😭❤️</h2>
+    <button onclick="startGame()">Aku juga 💖</button>
+  </div>
+
+  <!-- Game 1 -->
+  <div id="game" class="hidden">
+    <h3>Tebak aku sayang kamu berapa?</h3>
+    <button onclick="wrong()">100%</button>
+    <button onclick="wrong()">1000%</button>
+    <button onclick="correct()">Tak terhingga ♾️</button>
+  </div>
+
+  <!-- Game 2: Tebak tanggal jadian -->
+  <div id="dateGame" class="hidden">
+    <h3>Tebak tanggal jadian kita 💕</h3>
+    <button onclick="wrongDate()">14 Februari 2024</button>
+    <button onclick="correctDate()">01 Maret 2024</button>
+    <button onclick="wrongDate()">25 Desember 2023</button>
+  </div>
+
+  <div id="result" class="hidden">
+    <h2>Yess! Kamu selalu ingat aku yaa 😭💖</h2>
+    <p>Wah kamu masih ingat yaaa. makasih ya sayaang ku 💕</p>
+  </div>
+</div>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let step = 0;
+
+function nextStep() {
+  step++;
+
+  if (step === 1) {
+    document.getElementById('chat').classList.remove('hidden');
+  } else if (step === 2) {
+    document.getElementById('love').classList.remove('hidden');
+  }
+}
+
+function startGame() {
+  document.getElementById('game').classList.remove('hidden');
+}
+
+function wrong() {
+  alert('Kurang 😤');
+}
+
+function correct() {
+  document.getElementById('dateGame').classList.remove('hidden');
+}
+
+function wrongDate() {
+  alert('Salah 😭 coba ingat lagi!');
+}
+
+function correctDate() {
+  document.getElementById('result').classList.remove('hidden');
+}
+
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.innerHTML = '💖';
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}
+
+setInterval(createHeart, 300);
+</script>
+<body>
+
+<div id="lockScreen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#ff7eb3; display:flex; justify-content:center; align-items:center; flex-direction:column; z-index:999;">
+  <h2>Masukin password dulu ya 💕</h2>
+  <input type="password" id="password" placeholder="password..." style="padding:10px; border-radius:10px; border:none;">
+  <br><br>
+  <button onclick="checkPassword()">Masuk 💌</button>
+</div>
+
+<div id="content" style="display:none;">
+
+  </div>
+
+<script>
+function checkPassword() {
+  const pass = document.getElementById('password').value;
+
+  if (pass === "010324") { // password kamu
+    document.getElementById('lockScreen').style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  } else {
+    alert("Salah 😭");
+  }
+}
+</script>
+</body>
+</html>
